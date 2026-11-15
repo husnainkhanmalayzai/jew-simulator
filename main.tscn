@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://dfgaotwn7vbjm"]
+
+[ext_resource type="Script" uid="uid://b38x2ay43cpaq" path="res://player.gd" id="1_0xm2m"]
+[ext_resource type="Texture2D" uid="uid://box80glpttf02" path="res://Western-Wall-Jerusalem-2009.webp" id="1_7mycd"]
+[ext_resource type="Texture2D" uid="uid://stuxoey6rm3w" path="res://jewish-hat-illustration-on-white-background-vector-removebg-preview.png" id="2_7mycd"]
+[ext_resource type="PackedScene" uid="uid://dkh368w4gx847" path="res://coin.tscn" id="3_h2yge"]
+[ext_resource type="Texture2D" uid="uid://cjmpwgg41kjq3" path="res://The_Happy_Merchant-removebg-preview.png" id="4_272bh"]
+[ext_resource type="Texture2D" uid="uid://e5gkiwuan7n2" path="res://images-removebg-preview.png" id="5_5vw27"]
+[ext_resource type="AudioStream" uid="uid://cer4y5t1cpuj8" path="res://Nava Haglia Sound Effect (Jewish meme song).mp3" id="7_272bh"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_a8thf"]
+size = Vector2(105.5, 77)
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_fwlr5"]
+radius = 118.0
+
+[node name="main" type="Node2D" unique_id=1896832532]
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1476215551]
+position = Vector2(576, 324.00006)
+scale = Vector2(0.72, 0.61538464)
+texture = ExtResource("1_7mycd")
+
+[node name="cap" type="Area2D" parent="." unique_id=2074083441 groups=["cap"]]
+
+[node name="Sprite2D" type="Sprite2D" parent="cap" unique_id=1500610889]
+position = Vector2(1075.4525, 394.25296)
+rotation = 3.100305
+scale = Vector2(0.34921122, 0.33496913)
+texture = ExtResource("2_7mycd")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="cap" unique_id=416203117]
+position = Vector2(1075.25, 441.5)
+shape = SubResource("RectangleShape2D_a8thf")
+
+[node name="Player" type="CharacterBody2D" parent="." unique_id=2137897059]
+script = ExtResource("1_0xm2m")
+
+[node name="Sprite2D" type="Sprite2D" parent="Player" unique_id=1603439265]
+position = Vector2(127.64062, 518)
+scale = Vector2(1.6447912, 1.5200001)
+texture = ExtResource("4_272bh")
+
+[node name="pickupArea" type="Area2D" parent="Player" unique_id=1263382014]
+position = Vector2(10, -3)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Player/pickupArea" unique_id=1783791348]
+position = Vector2(136, 536)
+shape = SubResource("CircleShape2D_fwlr5")
+
+[node name="heldcoin" type="Sprite2D" parent="Player" unique_id=1226572900]
+visible = false
+position = Vector2(207.99998, 575)
+scale = Vector2(0.09386282, 0.08844763)
+texture = ExtResource("5_5vw27")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="Player" unique_id=1268420926]
+
+[node name="bankbalance" type="Label" parent="Player/CanvasLayer" unique_id=1450459373]
+offset_left = 81.0
+offset_top = 61.0
+offset_right = 202.0
+offset_bottom = 86.0
+rotation = -0.032591864
+text = "bank balance: 0"
+
+[node name="coin" parent="." unique_id=2048372003 instance=ExtResource("3_h2yge")]
+position = Vector2(54, 146)
+
+[node name="coin2" parent="." unique_id=1436797667 instance=ExtResource("3_h2yge")]
+position = Vector2(434, 181)
+
+[node name="coin3" parent="." unique_id=292687218 instance=ExtResource("3_h2yge")]
+position = Vector2(571, 45)
+
+[node name="coin4" parent="." unique_id=1420027261 instance=ExtResource("3_h2yge")]
+position = Vector2(79, 20)
+
+[node name="coin5" parent="." unique_id=609321291 instance=ExtResource("3_h2yge")]
+position = Vector2(-423, -117)
+
+[node name="AudioStreamPlayer2D" type="AudioStreamPlayer2D" parent="." unique_id=1433933802]
+stream = ExtResource("7_272bh")
+autoplay = true
+
+[connection signal="area_entered" from="Player/pickupArea" to="Player" method="_on_pickup_area_area_entered"]
